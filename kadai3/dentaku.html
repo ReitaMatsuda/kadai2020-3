@@ -1,55 +1,78 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<html><body>
-    <style>
-    button
-    {
-        width: 60px;
-        height: 60px;
-        background-color: white;
-        border-radius:100%;
-    }
-    </style>
-    <input style="width: 180px; font-size: 28px; text-align: right;" /><br />
-    <script>
-    function update( _v ) 
-    {
-        document.querySelector( 'input' ).value = _v
-    }
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>dentaku</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+        myTotal = 0;	
+        myInput = "";	
+        myCalc = "+";	
+        myFlg = 1;
+             
+        function myValue(myData){	
+        myFlg = 0;	
+        myInput += myData;	
+        document.myForm.myLine.value = myInput;	
+        }	
+             
+        function myCalculate(myData){	
+        if (myFlg==0){	
+        myFlg = 1;	
+        myWork = myTotal + myCalc + myInput;	
+        myTotal = eval(myWork);	
+        myInput = "";	
+        document.myForm.myLine.value = myTotal;	
+        }	
+        if (myData == "="){	
+        myTotal = 0;	
+        myCalc = "+";	
+        }else{	
+        myCalc = myData;	
+        }	
+        }	
+             
+        function myC(){	
+        myTotal = 0;	
+        myCalc = "+";	
+        myInput = "";	
+        document.myForm.myLine.value = myTotal;	
+        }	
+        </script>	
+             
+        <form name="myForm">
+        <table border="1" bgcolor="#BDB76B">
+        <tr>
+        <td colspan="3"><input type="text" size="12" name="myLine" value="0"></td>
+        <td align="center"><input type="button" value="Ｃ" onclick="myC()"></td>
+        </tr>
+        <tr>
+        <td align="center"><input type="button" value=" ７ " onclick="myValue(7)"></td>
+        <td align="center"><input type="button" value=" ８ " onclick="myValue(8)"></td>
+        <td align="center"><input type="button" value=" ９ " onclick="myValue(9)"></td>
+        <td align="center"><input type="button" value="÷" onclick="myCalculate('/')"></td>
+        </tr>
+        <tr>
+        <td align="center"><input type="button" value=" ４ " onclick="myValue(4)"></td>
+        <td align="center"><input type="button" value=" ５ " onclick="myValue(5)"></td>
+        <td align="center"><input type="button" value=" ６ " onclick="myValue(6)"></td>
+        <td align="center"><input type="button" value="×" onclick="myCalculate('*')"></td>
+        </tr>
+        <tr>
+        <td align="center"><input type="button" value=" １ " onclick="myValue(1)"></td>
+        <td align="center"><input type="button" value=" ２ " onclick="myValue(2)"></td>
+        <td align="center"><input type="button" value=" ３ " onclick="myValue(3)"></td>
+        <td align="center"><input type="button" value="－" onclick="myCalculate('-')"></td>
+        </tr>
+        <tr>
+        <td align="center"><input type="button" value=" ０ " onclick="myValue(0)"></td>
+        <td align="center"><input type="button" value=" ・ " onclick="myValue('.')"></td>
+        <td align="center"><input type="button" value=" ＋ " onclick="myCalculate('+')"></td>
+        <td align="center"><input type="button" value="＝" onclick="myCalculate('=')"></td>
+        </tr>
+        </table>
+        </form>
+  </body>
+</html>
 
-    function append( _v ) 
-    {
-        document.querySelector( 'input' ).value += _v
-    }
-
-    function calc() 
-    {
-        const v = document.querySelector( 'input' ).value
-        try {
-            const f = new Function( 'return ' + v )
-            update( f().toString() )
-        } catch( _error ) {
-            update( _error ) 
-        }
-    }
-    </script>
-    <button onclick="append( '1' )" >1</button>
-    <button onclick="append( '2' )" >2</button>
-    <button onclick="append( '3' )" >3</button><br />
-    <button onclick="append( '4' )" >4</button>
-    <button onclick="append( '5' )" >5</button>
-    <button onclick="append( '6' )" >6</button><br />
-    <button onclick="append( '7' )" >7</button>
-    <button onclick="append( '8' )" >8</button>
-    <button onclick="append( '9' )" >9</button><br />
-    <button onclick="append( '0' )" >0</button>
-    <button onclick="append( '.' )" >.</button>
-    <button onclick="append( '+' )" >+</button><br />
-    <button onclick="append( '-' )" >-</button>
-    <button onclick="append( '*' )" >*</button>
-    <button onclick="append( '/' )" >/</button><br />
-
-    <button onclick="calc()" style="width:125px;">=</button>
-
-    <button onclick="update( '' ) " >CLR</button>
-</body></html>
